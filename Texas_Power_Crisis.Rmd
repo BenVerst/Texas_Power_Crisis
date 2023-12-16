@@ -352,18 +352,26 @@ census_map_data <- census_map_data |>
 ```{r}
 # Map median income by census track and identifying outages
 tm_shape(census_map_data) +
+
+  # Add polygons representing median income with a heat color palette
   tm_polygons("median_income",
               palette = 'heat',
-              textNA = "Missing Income Data",
-              title = "Median Income") +
+              textNA = "Missing Income Data", # Label for areas with missing income data
+              title = "Median Income") + # Title
+
+  # Add a new layer using census_outage_map
   tm_shape(census_outage_map) +
-  tm_dots(shape = 16,
-          size = .2,
-          col = "black",  # Set the color of dots to black
-          title = 'blackout') +
-  tm_layout(main.title = "Houston Income Census Tracts that Had A Blackout",
-            legend.outside = TRUE,
-            main.title.size = 1)
+
+    # Add dots to represent outages
+    tm_dots(shape = 16,        # Shape code for filled circles
+            size = .2,         # Size of the dots
+            col = "black",     # Set the color of dots to black
+            title = 'blackout') +  # Legend title for the dots
+
+  # Set the layout options for the entire map
+  tm_layout(main.title = "Houston Income Census Tracts that Had A Blackout", # Main title of the map
+            legend.outside = TRUE,  # Display the legend outside the map
+            main.title.size = 1)    # Set the size of the main title
 
 ```
 
@@ -391,42 +399,63 @@ census_plot_data_no_blackout <- census_plot_data |>
 
 ```{r}
 
-# plotting census data that experienced a blackout
+# Plotting census data that experienced a blackout
+
+# Create a histogram using ggplot with census_plot_data_blackout
 ggplot(census_plot_data_blackout, aes(x = median_income)) +
-  geom_histogram(color = "black",fill = "darkgreen") +
-  labs(title = "Median Income for Homes that Had a Blackout",
-       x = "Median Income",
-       y = "Count") +
+  # Add histogram bars with black outline and dark green fill
+  geom_histogram(color = "black", fill = "darkgreen") +
+  labs(
+    title = "Median Income for Homes that Had a Blackout", # Title
+    x = "Median Income",                                   # X-axis label
+    y = "Count"                                            # Y-axis label
+  ) +
+  # Set the theme to minimal
   theme_minimal()
+
 
 ```
 
 ```{r}
+# Plotting census data that didn't experience a blackout
 
-# plotting census data that didn't experienced a blackout
+# Create a histogram using ggplot with census_plot_data_no_blackout
 ggplot(census_plot_data_no_blackout, aes(x = median_income)) +
+  # Add histogram bars with black outline and light green fill
   geom_histogram(color = "black", fill = "lightgreen") +
-  labs(title = "Median Income for Homes that Didn't Have a Blackout",
-       x = "Median Income",
-       y = "Count") +
+  labs(
+    title = "Median Income for Homes that Didn't Have a Blackout", # Plot title
+    x = "Median Income",                                           # X-axis label
+    y = "Count"                                                    # Y-axis label
+  ) +
+  # Set the theme to minimal
   theme_minimal()
+
 
 ```
 
 ```{r}
-
+# Create a scatter plot comparing median income for homes that had a blackout or not
 ggplot(census_plot_data, aes(x = blackout, y = median_income)) +
-  geom_jitter(width = 0.1,
-              height = 0,
-              color = "purple",
-              alpha = 0.8) +
-  labs(title = "Comparison Between the Median Income for Homes that Had a Blackout or Not",
-       x = "Experienced Blackout",
-       y = "Median Income") +
+  # Add jittered points for better visualization
+  geom_jitter(width = 0.1,          # Width of jitter
+              height = 0,           # Height of jitter
+              color = "purple",     # Point color
+              alpha = 0.8) +        # Transparency of points
+  labs(
+    title = "Comparison Between the Median Income for Homes that Had a Blackout or Not",  # Plot title
+    x = "Experienced Blackout",  # X-axis label
+    y = "Median Income"          # Y-axis label
+  ) +
+  # Set the theme to minimal
   theme_minimal()
 
+# Display summary statistics for homes that had a blackout
 summary(census_plot_data_blackout)
+
+# Display summary statistics for homes that didn't have a blackout
 summary(census_plot_data_no_blackout)
+
 ```
 
 \
