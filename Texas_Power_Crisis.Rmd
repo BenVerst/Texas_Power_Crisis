@@ -31,7 +31,7 @@ To determine the number of homes that lost power, we will link (spatially join) 
 
 To investigate potential socioeconomic factors that influenced recovery, the analysis will be linked with data from the US Census Bureau.
 
-#### Learning objectives:
+#### Highlights
 
 -   load vector/raster data\
 
