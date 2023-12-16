@@ -42,8 +42,10 @@ We cannot readily get socioeconomic information for every home, so instead we ob
 
     Texas_Power_Crisis
     │   README.md
-    │   Rmd/Proj files    
-    │
+    │   .gitignore
+    │   Texas_Power_Crisis.Rmd   
+    │   Texas_Power_Crisis.Rproj
+    │   Texas_Power_Crisis.html
     └───data
         │   gis_osm_buildings_a_free_1.gpkg
         │   gis_osm_roads_free_1.gpkg
